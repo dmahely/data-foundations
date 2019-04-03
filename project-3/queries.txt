@@ -1,0 +1,72 @@
+/* Query 1: Which country listens to the most metal? */
+SELECT
+  i.BillingCountry Country,
+  COUNT(*) NumberOfTracks
+FROM Invoice i
+JOIN InvoiceLine il
+  ON i.InvoiceId = il.InvoiceId
+JOIN Track t
+  ON il.TrackId = t.TrackId
+JOIN Genre g
+  ON t.GenreId = g.GenreId
+WHERE g.Name = 'Metal'
+GROUP BY Country
+ORDER BY NumberOfTracks DESC
+LIMIT 10
+
+/* Query 2: What were the 5 most sold albums in 2012 and 2013? */
+SELECT
+  a.Title Title,
+  COUNT(*) Number
+FROM Album a
+JOIN Track t
+  ON a.AlbumId = t.AlbumId
+JOIN InvoiceLine il
+  ON t.TrackId = il.TrackId
+JOIN Invoice i
+  ON il.InvoiceId = i.InvoiceId
+WHERE i.InvoiceDate BETWEEN '2012-01-01' AND '2013-01-01'
+GROUP BY Title
+ORDER BY Number DESC
+LIMIT 5
+
+SELECT
+  a.Title Title,
+  COUNT(*) Number
+FROM Album a
+JOIN Track t
+  ON a.AlbumId = t.AlbumId
+JOIN InvoiceLine il
+  ON t.TrackId = il.TrackId
+JOIN Invoice i
+  ON il.InvoiceId = i.InvoiceId
+WHERE i.InvoiceDate BETWEEN '2013-01-01' AND '2014-01-01'
+GROUP BY Title
+ORDER BY Number DESC
+LIMIT 5
+
+/* Query 3: Which employees have helped the most customers? */
+SELECT
+  e.FirstName,
+  COUNT(*) Number
+FROM Employee e
+JOIN Customer c
+  ON c.SupportRepId = e.EmployeeId
+JOIN Invoice i
+  ON c.CustomerId = i.CustomerId
+GROUP BY e.FirstName
+ORDER BY Number DESC
+
+/* Query 4: Which music genre is most added to playlists? */
+SELECT
+  g.Name,
+  COUNT(*) Number
+FROM Genre g
+JOIN Track t
+  ON g.GenreId = t.GenreId
+JOIN PlaylistTrack pt
+  ON t.TrackId = pt.TrackId
+JOIN Playlist p
+  ON pt.PlaylistId = p.PlaylistId
+GROUP BY g.Name
+ORDER BY Number DESC
