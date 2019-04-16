@@ -1,0 +1,2 @@
+# Data Visualization
+In the fourth and last project in the Data Foundations Nanodegree, you are given three data sets and required to choose one. You need to create data visualizations using Tableau that tell a story or highlight patterns in the data set. You can look through the data set and choose whatever you think is interesting. The end product should be the links to the Tableau visualizations and a report showing your insights about each one. I chose the Flight Delays and Cancellations data set.
